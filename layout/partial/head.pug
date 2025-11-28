@@ -18,12 +18,41 @@ meta(content="black",name="apple-mobile-web-app-status-bar-style")
 meta(content="telephone=no",name="format-detection")
 
 meta(name="renderer",content="webkit")
-link(rel="short icon", href="images/favicon.png",type="image/x-icon")
+- var faviconPath = theme.favicon || '/images/favicon.png'
+link(rel="short icon", href= url_for(faviconPath), type="image/x-icon")
+link(rel="icon", href= url_for(faviconPath), type="image/x-icon")
 link(rel="stylesheet", href= url_for('css/bootstrap.min.css'))
 link(rel="stylesheet", href= url_for('css/font-awesome.min.css'))
 //- link(rel="stylesheet", href= url_for('css/typography-custom-font.css'))
-if theme.themeStyle == "light"
+- var themeStyle = theme.themeStyle || "light"
+if themeStyle == "auto"
+    link(id="theme-light", rel="stylesheet", href= url_for('css/style.css'))
+    link(id="theme-dark", rel="stylesheet", href= url_for('css/style-dark.css'))
+    script.
+        (function() {
+            function applyTheme() {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const lightLink = document.getElementById('theme-light');
+                const darkLink = document.getElementById('theme-dark');
+                if (lightLink && darkLink) {
+                    if (prefersDark) {
+                        lightLink.disabled = true;
+                        darkLink.disabled = false;
+                    } else {
+                        lightLink.disabled = false;
+                        darkLink.disabled = true;
+                    }
+                }
+            }
+            // 立即应用，避免闪烁
+            applyTheme();
+            // 监听系统主题变化
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+            }
+        })();
+else if themeStyle == "light"
     link(rel="stylesheet", href= url_for('css/style.css'))
-if theme.themeStyle == "dark"
+else if themeStyle == "dark"
     link(rel="stylesheet", href= url_for('css/style-dark.css'))
 link(rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml")
