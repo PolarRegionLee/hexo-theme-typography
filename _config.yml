@@ -23,8 +23,8 @@ themeStyle: auto # light/dark/auto (auto follows system preference)
 giscus:
   repo: "PolarRegionLee/polarregionlee.github.io"
   repo_id: "R_kgDOQewrBg"
-  category: "Announcements"
-  category_id: "DIC_kwDOQewrBs4CzKC1"
+  category: "General"
+  category_id: "DIC_kwDOQewrBs4CzKC2"
   mapping: "pathname"
   strict: "0"
   reactions_enabled: "1"
