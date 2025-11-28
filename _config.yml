@@ -18,3 +18,5 @@ showTags: true
 
 # Color scheme
 themeStyle: auto # light/dark/auto (auto follows system preference)
+
+giscus: true
